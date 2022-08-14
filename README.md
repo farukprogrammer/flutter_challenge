@@ -1,16 +1,14 @@
 # goat_flutter_challange
 
-A new Flutter project.
+XYZ Goat Flutter Challange - Scenario B
 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+before started, you need to active melos
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- dart pub global activate melos
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+melos is a great tools to support multiple package flutter app, wo we don't create a monolythic app
+reference : https://medium.com/flutter-community/managing-multi-package-flutter-projects-with-melos-c8ce96fa7c82
