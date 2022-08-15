@@ -6,7 +6,12 @@ import 'flavor/flavor_config.dart';
 
 void bootstrap(FlavorConfig flavor) {
   runZonedGuarded(() async {
-    runApp(MyApp(title: flavor.name,));
+    runApp(
+      MyApp(
+        title: flavor.name,
+        supportedLocales: flavor.supportedLocales,
+      ),
+    );
   }, (error, stackTrace) {
     // todo: uncomment this when connect to firebase crashlytics
     // FirebaseCrashlytics.instance.recordError(error, stack);
@@ -15,9 +20,13 @@ void bootstrap(FlavorConfig flavor) {
 
 class MyApp extends StatelessWidget {
   final String title;
+  final Iterable<Locale> supportedLocales;
 
-  const MyApp({Key? key, required this.title}) : super(key: key);
-
+  const MyApp({
+    Key? key,
+    required this.title,
+    required this.supportedLocales,
+  }) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -29,6 +38,7 @@ class MyApp extends StatelessWidget {
       ),
       home: MyHomePage(title: 'Flutter Demo Page - $title'),
       debugShowCheckedModeBanner: false,
+      supportedLocales: supportedLocales,
     );
   }
 }
