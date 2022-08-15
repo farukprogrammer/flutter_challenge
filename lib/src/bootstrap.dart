@@ -1,11 +1,23 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'flavor/flavor_config.dart';
+
+void bootstrap(FlavorConfig flavor) {
+  runZonedGuarded(() async {
+    runApp(MyApp(title: flavor.name,));
+  }, (error, stackTrace) {
+    // todo: uncomment this when connect to firebase crashlytics
+    // FirebaseCrashlytics.instance.recordError(error, stack);
+  });
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final String title;
+
+  const MyApp({Key? key, required this.title}) : super(key: key);
+
 
   // This widget is the root of your application.
   @override
@@ -15,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter Demo Page - $title'),
       debugShowCheckedModeBanner: false,
     );
   }

@@ -1,4 +1,4 @@
-package com.xyz.goat.flutterchallange.goat_flutter_challange
+package com.xyz.goat.flutterchallenge.goat_flutter_challenge
 
 import io.flutter.embedding.android.FlutterActivity
 
