@@ -4,7 +4,6 @@ import 'package:async/async.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/native_imp.dart';
 import 'package:network_client/src/goat_response_array.dart';
-import 'package:nullable_util/nullable_util.dart';
 
 import 'interceptor/request_interceptor.dart';
 
@@ -79,6 +78,33 @@ class NetworkClient extends DioForNative {
       } else {
         // if response is null then return empty list
         return Result.value([]);
+      }
+    } on DioError catch (e) {
+      return Result.error(e);
+    } on Exception catch (ex) {
+      return Result.error(ex);
+    }
+  }
+
+  Future<Result<GoatResponseArray<T>>> getRequestArrayFull<T>(
+    T Function(Map<String, dynamic>) decoder, {
+    String path = "",
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+  }) async {
+    try {
+      final rawResponse = await get<String>(
+        path,
+        queryParameters: queryParameters,
+        options: options,
+      );
+      if (rawResponse.data != null) {
+        final json = jsonDecode(rawResponse.data!);
+        final response = GoatResponseArray<T>.fromJson(json, decoder);
+        return Result.value(response);
+      } else {
+        // if response is null then return empty Response Array
+        return Result.value(GoatResponseArray());
       }
     } on DioError catch (e) {
       return Result.error(e);

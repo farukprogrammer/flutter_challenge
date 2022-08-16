@@ -183,7 +183,7 @@ packages:
     source: path
     version: "0.0.1"
   nullable_util:
-    dependency: "direct overridden"
+    dependency: transitive
     description:
       path: "module/library/nullable_util"
       relative: true
