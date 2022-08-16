@@ -1,0 +1,28 @@
+{
+  "@@last_modified": "2022-08-16T06:40:04.950699",
+  "books": {
+    "default": "Books",
+    "id": "Buku",
+    "ja": "図書"
+  },
+  "booksDetail": {
+    "default": "Books Detail",
+    "id": "Detail Buku",
+    "ja": "書籍詳細"
+  },
+  "downloads": {
+    "default": "Downloads",
+    "id": "Unduh",
+    "ja": "ダウンロード"
+  },
+  "readHere": {
+    "default": "Read Here",
+    "id": "Baca disini",
+    "ja": "ここを読む"
+  },
+  "authors": {
+    "default": "Authors: %s",
+    "id": "Pengarang: %s",
+    "ja": "著者: %s"
+  }
+}
