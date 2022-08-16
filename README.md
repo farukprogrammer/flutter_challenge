@@ -13,7 +13,8 @@ before started, you need to active melos
 melos is a great tools to support multiple package flutter app, wo we don't create a monolythic app
 reference : https://medium.com/flutter-community/managing-multi-package-flutter-projects-with-melos-c8ce96fa7c82
 
-to import all the dependency you need to run the following commands
+to download all the dependency you need to run the following commands, 
+this command will run `flutter pub get` for all modules
 
 - melos bs
 
@@ -32,7 +33,6 @@ For generating locale just run the following commands :
   - melos gen_locale
 
 And then choose the ui module that need to be generated.
-
 After update the .arb files, you need to re-run `melos gen_locale` again
 
 ## How to use locale resource

@@ -18,6 +18,9 @@ dependencies:
   ui_book:
     path: module/ui/ui_book
 
+  service_locator:
+    path: module/library/service_locator
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
