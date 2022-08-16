@@ -9,5 +9,8 @@ class DataBookRegistrar implements Registrar {
     // setup repository dependency
     locator.registerFactory(() => BookRepository(locator()));
     locator.registerFactory<GetBooksInterface>(() => locator<BookRepository>());
+    locator.registerFactory<GetBookDetailInterface>(
+      () => locator<BookRepository>(),
+    );
   }
 }

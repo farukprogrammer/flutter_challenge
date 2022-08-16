@@ -34,6 +34,7 @@ class NetworkClient extends DioForNative {
     String path = "",
     Map<String, dynamic>? queryParameters,
     Options? options,
+    String? errorPayloadKey,
   }) async {
     try {
       final rawResponse = await get<String>(
@@ -46,6 +47,10 @@ class NetworkClient extends DioForNative {
         if (json is T) {
           return Result.value(json);
         } else {
+          if (errorPayloadKey?.isNotEmpty == true &&
+              json[errorPayloadKey] != null) {
+            return Result.error(Exception(json[errorPayloadKey]));
+          }
           return Result.value(decoder(json));
         }
       } else {
