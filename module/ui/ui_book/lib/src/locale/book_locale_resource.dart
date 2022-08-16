@@ -32,5 +32,10 @@ class BookLocaleResource extends LocaleResource {
       'id': 'Pengarang: %s',
       'ja': '著者: %s',
     },
+    'search': {
+      'default': 'Search',
+      'id': 'Cari',
+      'ja': 'サーチ',
+    },
   };
 }

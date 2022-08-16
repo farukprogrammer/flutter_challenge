@@ -26,6 +26,10 @@ class BookLocale extends GoatLocale {
     return resource.get('authors', args: [s0]);
   }
   
+  String get search {
+    return resource.get('search');
+  }
+  
   @override
   LocaleResource get resource {
     return BookLocaleResource(languageCode);

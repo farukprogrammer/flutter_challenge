@@ -15,6 +15,12 @@ dependencies:
   localization:
     path: ../../library/localization
 
+  base_component:
+    path: ../../library/base_component
+
+  base_asset:
+    path: ../../library/base_asset
+
   go_router: ^4.2.7
 
 dev_dependencies:

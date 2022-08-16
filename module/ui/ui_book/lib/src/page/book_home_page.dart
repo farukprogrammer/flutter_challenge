@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localization/localization.dart';
+import 'package:base_component/base_component.dart';
 
 import '../locale/book_locale.dart';
 
@@ -18,8 +19,14 @@ class BookHomePage extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SearchBarComponent(
+                placeholder: locale.search,
+              ),
+            ),
             ElevatedButton(
               onPressed: () => context.goNamed('detail'),
               child: Text('Go to ${locale.booksDetail}'),
