@@ -4,38 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:service_locator/service_locator.dart';
 import 'package:ui_book/ui_book.dart';
 
-final GoRouter _router = GoRouter(
-  routes: <GoRoute>[
-    GoRoute(
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) =>
-          const BookHomePage(),
-      routes: <GoRoute>[
-        GoRoute(
-          name: 'detail',
-          path: 'detail',
-          builder: (BuildContext context, GoRouterState state) =>
-              const BookDetailPage(),
-          routes: <GoRoute>[
-            GoRoute(
-              name: 'search_result',
-              path: 'search_result',
-              builder: (
-                BuildContext context,
-                GoRouterState state,
-              ) {
-                return BookSearchResultPage(
-                  author: state.queryParams['author'] ?? '',
-                );
-              },
-            ),
-          ],
-        ),
-      ],
-    ),
-  ],
-);
-
 final _localizationsDelegates = [
   GlobalMaterialLocalizations.delegate,
   GlobalWidgetsLocalizations.delegate,
@@ -56,10 +24,44 @@ class EbookApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    final GoRouter router = GoRouter(
+      routes: <GoRoute>[
+        GoRoute(
+          path: '/',
+          builder: (BuildContext context, GoRouterState state) => BookHomePage(
+            getBooksUseCase: locator(),
+          ),
+          routes: <GoRoute>[
+            GoRoute(
+              name: 'detail',
+              path: 'detail',
+              builder: (BuildContext context, GoRouterState state) =>
+                  const BookDetailPage(),
+              routes: <GoRoute>[
+                GoRoute(
+                  name: 'search_result',
+                  path: 'search_result',
+                  builder: (
+                    BuildContext context,
+                    GoRouterState state,
+                  ) {
+                    return BookSearchResultPage(
+                      author: state.queryParams['author'] ?? '',
+                    );
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+
     return MaterialApp.router(
-      routeInformationProvider: _router.routeInformationProvider,
-      routeInformationParser: _router.routeInformationParser,
-      routerDelegate: _router.routerDelegate,
+      routeInformationProvider: router.routeInformationProvider,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
       localizationsDelegates: _localizationsDelegates,
       title: 'EBook App',
       debugShowCheckedModeBanner: false,

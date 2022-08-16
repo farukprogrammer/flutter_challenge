@@ -24,6 +24,18 @@ dependencies:
   cubit_util:
     path: ../../library/cubit_util
 
+  result_util:
+    path: ../../library/result_util
+
+  network_client:
+    path: ../../library/network_client
+
+  domain_book:
+    path: ../../domain/domain_book
+
+  entity_book:
+    path: ../../entity/entity_book
+
   go_router: ^4.2.7
 
   # url: https://pub.dev/packages/shimmer

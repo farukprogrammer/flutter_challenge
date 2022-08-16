@@ -321,6 +321,7 @@ class _InputTextComponentState extends State<InputTextComponent> {
     setState(() {
       _textEditingController.text = "";
     });
+    internalText = "";
     widget.onTextChanged?.call("");
   }
 
