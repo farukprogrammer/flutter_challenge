@@ -1,3 +1,4 @@
+import 'package:network_client/network_client.dart';
 import 'package:nullable_util/nullable_util.dart';
 
 import 'constants.dart';
@@ -49,5 +50,14 @@ class GoatResponseArray<T> {
     data[keyPrevious] = previous;
 
     return data;
+  }
+
+  GoatResponseArray<T> appendResult(GoatResponseArray<T> newResults) {
+    return GoatResponseArray(
+      count: newResults.count,
+      next: newResults.next,
+      previous: newResults.previous,
+      results: results..addAll(newResults.results),
+    );
   }
 }

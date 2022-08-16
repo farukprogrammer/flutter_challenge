@@ -42,6 +42,7 @@ class BookHomeView extends StatelessWidget {
               return _LoadedBooks(
                 key: const Key(BookHomeView.loadedStateKey),
                 data: state.apiResult.asData?.value.results ?? [],
+                isLoadingMore: state.isLoadingMorePage,
               );
             } else {
               return const _ErrorBooks(
@@ -78,19 +79,38 @@ class _LoadingBooks extends StatelessWidget {
 class _LoadedBooks extends StatefulWidget {
   final List<Book> data;
 
-  const _LoadedBooks({Key? key, required this.data}) : super(key: key);
+  final bool isLoadingMore;
+
+  const _LoadedBooks({
+    Key? key,
+    required this.data,
+    required this.isLoadingMore,
+  }) : super(key: key);
 
   @override
   State<_LoadedBooks> createState() => _LoadedBooksState();
 }
 
 class _LoadedBooksState extends State<_LoadedBooks> {
-  late final List<Book> data;
+  late ScrollController _scrollController;
 
   @override
   void initState() {
-    data = widget.data;
     super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      final cubit = context.read<HomeCubit>();
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent * 0.95) {
+        cubit.loadAndAppend();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -102,12 +122,13 @@ class _LoadedBooksState extends State<_LoadedBooks> {
         context.read<HomeCubit>().load();
       },
       child: CustomScrollView(
+        controller: _scrollController,
         slivers: [
           SliverPinnedHeader(
             child: Container(
               color: ColorToken.inverse01,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
                 child: SearchBarComponent(
                   placeholder: locale.search,
                 ),
@@ -117,8 +138,20 @@ class _LoadedBooksState extends State<_LoadedBooks> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                final book = data[index];
+                // loading more indicator
+                if (index >= widget.data.length) {
+                  return const Padding(
+                    padding: EdgeInsets.fromLTRB(100, 16, 100, 16),
+                    child: SizedBox(
+                      height: 16,
+                      child: LoadingComponent(
+                        style: BaseLoadingStyle.linear,
+                      ),
+                    ),
+                  );
+                }
 
+                final book = widget.data[index];
                 return Column(
                   children: [
                     if (index > 0) ...{
@@ -131,7 +164,7 @@ class _LoadedBooksState extends State<_LoadedBooks> {
                   ],
                 );
               },
-              childCount: data.length,
+              childCount: widget.data.length + (widget.isLoadingMore ? 1 : 0),
             ),
           ),
         ],

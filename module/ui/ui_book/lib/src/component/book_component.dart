@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'fade_in_text_component.dart';
 
 class BookComponent extends StatelessWidget {
+  static const noImageAsset = 'packages/ui_book/asset/image/no_image.jpg';
+
   final Book book;
   final VoidCallback? onTap;
 
@@ -24,11 +26,21 @@ class BookComponent extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ImageComponent.url(
-              book.formats.image ?? '',
-              width: 80,
-              height: 120,
-            ),
+            if (book.formats.image?.isNotEmpty == true) ...[
+              ImageComponent.network(
+                NetworkImage(book.formats.image!),
+                width: 80,
+                height: 120,
+                fit: BoxFit.fill,
+              )
+            ] else ...[
+              ImageComponent.asset(
+                noImageAsset,
+                width: 80,
+                height: 120,
+                fit: BoxFit.fill,
+              )
+            ],
             const SizedBox(width: 16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
