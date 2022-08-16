@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:go_router/go_router.dart';
 
 import '../locale/book_locale.dart';
 

@@ -1,0 +1,49 @@
+name: base_component
+description: A new Flutter package project.
+version: 0.0.1
+homepage:
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.17.6 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # url: https://pub.dev/packages/async
+  # desc: for Result<*> to easier define loading, success or error
+  async: 2.8.2
+
+  # url: https://pub.dev/packages/flutter_svg
+  # desc: Draw SVG (and some Android VectorDrawable (XML)) files on a Flutter Widget
+  flutter_svg: 1.1.0
+
+  # url: https://pub.dev/packages/cached_network_image
+  # desc: to show images from the internet and keep them in the cache directory
+  cached_network_image: 3.2.1
+
+  base_asset:
+    path: ../../library/base_asset
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  fonts:
+    - family: BukaSansDisplay
+      fonts:
+        - asset: asset/font/BukaSansDisplay-Medium.otf
+          weight: 500
+        - asset: asset/font/BukaSansDisplay-Bold.otf
+          weight: 700
+    - family: BukaSansText
+      fonts:
+        - asset: asset/font/BukaSansText-Regular.otf
+        - asset: asset/font/BukaSansText-Medium.otf
+          weight: 500
+        - asset: asset/font/BukaSansText-Bold.otf
+          weight: 700

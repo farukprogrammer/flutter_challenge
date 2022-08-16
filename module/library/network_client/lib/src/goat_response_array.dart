@@ -39,15 +39,15 @@ class GoatResponseArray<T> {
     Map<String, dynamic> Function(T) payloadTransformer, {
     String? payloadName,
   }) {
-    final _data = <String, dynamic>{};
+    final data = <String, dynamic>{};
 
     if (results.isNotEmpty) {
-      _data[keyResults] = results.map(payloadTransformer).toList();
+      data[keyResults] = results.map(payloadTransformer).toList();
     }
-    _data[keyCount] = count;
-    _data[keyNext] = next;
-    _data[keyPrevious] = previous;
+    data[keyCount] = count;
+    data[keyNext] = next;
+    data[keyPrevious] = previous;
 
-    return _data;
+    return data;
   }
 }
