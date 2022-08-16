@@ -8,11 +8,11 @@ class GetBooksUseCase {
   const GetBooksUseCase(this._getBooks);
 
   Future<Result<GoatResponseArray<Book>>> call({
-    String pathUrl = GetBooksInterface.defaultPathUrl,
+    String fullUrl = GetBooksInterface.defaultFullUrl,
     String? searchQuery,
   }) {
     return _getBooks.getBooks(
-      pathUrl: pathUrl,
+      fullUrl: fullUrl,
       searchQuery: searchQuery,
     );
   }

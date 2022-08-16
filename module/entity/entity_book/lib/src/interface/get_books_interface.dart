@@ -4,10 +4,10 @@ import 'package:network_client/network_client.dart';
 import '../model/book.dart';
 
 abstract class GetBooksInterface {
-  static const defaultPathUrl = 'https://gutendex.com/books/';
+  static const defaultFullUrl = 'https://gutendex.com/books/';
 
   Future<Result<GoatResponseArray<Book>>> getBooks({
-    required String pathUrl,
+    required String fullUrl,
     String? searchQuery,
   });
 }

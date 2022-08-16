@@ -27,6 +27,9 @@ dependencies:
   domain_book:
     path: module/domain/domain_book
 
+  data_book:
+    path: module/data/data_book
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
