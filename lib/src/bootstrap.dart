@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:network_client/network_client.dart';
 import 'package:service_locator/service_locator.dart';
 
 import 'ebook_app.dart';
@@ -14,9 +15,14 @@ void bootstrap(FlavorConfig flavor) {
     );
     final locator = ServiceLocator.asNewInstance();
 
+    // inject all dependency with registering all the registrar
+    await Future.wait([
+      locator.registerRegistrar(NetworkClientRegistrar(baseUrl: flavor.baseUrl)),
+    ]);
+
     runApp(
       EbookApp(
-        title: flavor.name,
+        locator: locator,
         supportedLocales: flavor.supportedLocales,
       ),
     );

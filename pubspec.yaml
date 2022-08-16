@@ -21,6 +21,9 @@ dependencies:
   service_locator:
     path: module/library/service_locator
 
+  network_client:
+    path: module/library/network_client
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

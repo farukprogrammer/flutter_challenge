@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:service_locator/service_locator.dart';
 import 'package:ui_book/ui_book.dart';
 
 final GoRouter _router = GoRouter(
@@ -43,12 +44,12 @@ final _localizationsDelegates = [
 ];
 
 class EbookApp extends StatelessWidget {
-  final String title;
+  final ServiceLocator locator;
   final Iterable<Locale> supportedLocales;
 
   const EbookApp({
     Key? key,
-    required this.title,
+    required this.locator,
     required this.supportedLocales,
   }) : super(key: key);
 
@@ -60,7 +61,7 @@ class EbookApp extends StatelessWidget {
       routeInformationParser: _router.routeInformationParser,
       routerDelegate: _router.routerDelegate,
       localizationsDelegates: _localizationsDelegates,
-      title: 'Flutter Demo Page - $title',
+      title: 'EBook App',
       debugShowCheckedModeBanner: false,
       supportedLocales: supportedLocales,
       theme: ThemeData(

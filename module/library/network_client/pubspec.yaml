@@ -1,0 +1,40 @@
+name: network_client
+description: A new Flutter package project.
+version: 0.0.1
+homepage:
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.17.6 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # url: https://pub.dev/packages/dio
+  # desc: A powerful Http client for Dart, which supports Interceptors, Global configuration,
+  #       FormData, Request Cancellation, File downloading, Timeout etc.
+  dio: ^4.0.6
+
+  # url: https://pub.dev/packages/async
+  # desc: for Result<*> to easier define loading, success or error
+  async: 2.8.2
+
+  # url: https://pub.dev/packages/internet_connection_checker
+  # desc: checks for an Active Internet connection by opening a socket to a list of specified addresses
+  internet_connection_checker: ^0.0.1+4
+
+  service_locator:
+    path: ../../library/service_locator
+
+  nullable_util:
+    path: ../../library/nullable_util
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+
