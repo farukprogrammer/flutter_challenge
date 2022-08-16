@@ -30,7 +30,7 @@ class GoatResponseArray<T> {
         }
       }
     }
-    count = int.tryParse(json[keyCount] as String? ?? '0') ?? 0;
+    count = (json[keyCount] as int?) ?? 0;
     next = json[keyNext] as String?;
     previous = json[keyPrevious] as String?;
   }

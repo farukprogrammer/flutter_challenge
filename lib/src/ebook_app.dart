@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:service_locator/service_locator.dart';
 import 'package:ui_book/ui_book.dart';
+import 'package:entity_book/entity_book.dart';
 
 final _localizationsDelegates = [
   GlobalMaterialLocalizations.delegate,
@@ -24,7 +25,6 @@ class EbookApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     final GoRouter router = GoRouter(
       routes: <GoRoute>[
         GoRoute(
@@ -35,9 +35,12 @@ class EbookApp extends StatelessWidget {
           routes: <GoRoute>[
             GoRoute(
               name: 'detail',
-              path: 'detail',
+              path: 'detail/:id',
               builder: (BuildContext context, GoRouterState state) =>
-                  const BookDetailPage(),
+                  BookDetailPage(
+                bookId: int.tryParse(state.params['id'] ?? '') ?? 0,
+                bookData: state.extra as Book?,
+              ),
               routes: <GoRoute>[
                 GoRoute(
                   name: 'search_result',

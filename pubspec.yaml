@@ -30,6 +30,9 @@ dependencies:
   data_book:
     path: module/data/data_book
 
+  entity_book:
+    path: module/entity/entity_book
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

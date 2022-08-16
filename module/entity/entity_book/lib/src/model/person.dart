@@ -17,12 +17,8 @@ class Person {
 
   factory Person.fromJson(Map<String, dynamic> json) => Person(
         name: json['name'] as String,
-        birthYear: json['birth_year'] == null
-            ? null
-            : int.tryParse(json['birth_year']),
-        deathYear: json['death_year'] == null
-            ? null
-            : int.tryParse(json['death_year']),
+        birthYear: json['birth_year'] as int?,
+        deathYear: json['death_year'] as int?,
       );
 
   Map<String, dynamic> toJson() => {

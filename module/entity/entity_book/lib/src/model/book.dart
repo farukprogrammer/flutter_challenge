@@ -35,18 +35,18 @@ class Book {
   });
 
   factory Book.fromJson(Map<String, dynamic> json) => Book(
-        id: int.tryParse(json['id']) ?? 0,
+        id: json['id'] as int,
         title: json['title'] as String,
         subjects: (json['subjects'] as List<dynamic>?)
                 ?.map((e) => e as String)
                 .toList() ??
             [],
         authors: (json['authors'] as List<dynamic>?)
-                ?.map((e) => personFromJson(e))
+                ?.map((e) => Person.fromJson(e))
                 .toList() ??
             [],
         translators: (json['translators'] as List<dynamic>?)
-                ?.map((e) => personFromJson(e))
+                ?.map((e) => Person.fromJson(e))
                 .toList() ??
             [],
         bookshelves: (json['bookshelves'] as List<dynamic>?)
@@ -61,9 +61,8 @@ class Book {
         mediaType: json['media_type'] as String,
         formats: json['formats'] == null
             ? const Format()
-            : formatFromJson(json['formats']),
-        downloadCount:
-            int.tryParse(json['download_count'] as String? ?? '0') ?? 0,
+            : Format.fromJson(json['formats']),
+        downloadCount: (json['download_count'] as int?) ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
