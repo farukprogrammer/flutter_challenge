@@ -57,6 +57,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.6"
+  domain_book:
+    dependency: "direct main"
+    description:
+      path: "module/domain/domain_book"
+      relative: true
+    source: path
+    version: "0.0.1"
+  entity_book:
+    dependency: "direct overridden"
+    description:
+      path: "module/entity/entity_book"
+      relative: true
+    source: path
+    version: "0.0.1"
   fake_async:
     dependency: transitive
     description:
@@ -183,7 +197,7 @@ packages:
     source: path
     version: "0.0.1"
   nullable_util:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       path: "module/library/nullable_util"
       relative: true

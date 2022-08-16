@@ -5,7 +5,7 @@ import 'person.dart';
 
 Book bookFromJson(String str) => Book.fromJson(json.decode(str));
 
-String personToJson(Book data) => json.encode(data.toJson());
+String bookToJson(Book data) => json.encode(data.toJson());
 
 class Book {
   final int id;

@@ -24,6 +24,9 @@ dependencies:
   network_client:
     path: module/library/network_client
 
+  domain_book:
+    path: module/domain/domain_book
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

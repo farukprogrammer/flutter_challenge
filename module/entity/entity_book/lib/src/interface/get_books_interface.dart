@@ -7,7 +7,7 @@ abstract class GetBooksInterface {
   static const defaultPathUrl = 'https://gutendex.com/books/';
 
   Future<Result<GoatResponseArray<Book>>> getBooks({
-    String pathUrl = defaultPathUrl,
+    required String pathUrl,
     String? searchQuery,
   });
 }

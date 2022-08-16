@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:network_client/network_client.dart';
 import 'package:service_locator/service_locator.dart';
+import 'package:domain_book/domain_book.dart';
 
 import 'ebook_app.dart';
 import 'flavor/flavor_config.dart';
@@ -18,6 +19,7 @@ void bootstrap(FlavorConfig flavor) {
     // inject all dependency with registering all the registrar
     await Future.wait([
       locator.registerRegistrar(NetworkClientRegistrar(baseUrl: flavor.baseUrl)),
+      locator.registerRegistrar(DomainBookRegistrar()),
     ]);
 
     runApp(
