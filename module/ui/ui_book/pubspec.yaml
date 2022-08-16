@@ -21,7 +21,18 @@ dependencies:
   base_asset:
     path: ../../library/base_asset
 
+  cubit_util:
+    path: ../../library/cubit_util
+
   go_router: ^4.2.7
+
+  # url: https://pub.dev/packages/shimmer
+  # desc: A package provides an easy way to add shimmer effect
+  shimmer: 2.0.0
+
+  # url: https://pub.dev/packages/flutter_bloc
+  # desc: StateManagement library for cubit and bloc
+  flutter_bloc: 8.0.1
 
 dev_dependencies:
   flutter_test:
