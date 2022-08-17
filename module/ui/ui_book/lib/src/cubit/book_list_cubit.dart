@@ -15,10 +15,7 @@ class BookListCubit extends Cubit<BookListState> with SafeEmitCubit {
   })  : _getBooksUseCase = getBooksUseCase,
         super(BookListState(keyword: keyword));
 
-  void load({
-    String? keyword,
-    String? fullUrl,
-  }) async {
+  void load({String? keyword}) async {
     if (state.apiResult.isLoading && !state.isFirstTime) {
       return;
     }
@@ -28,15 +25,12 @@ class BookListCubit extends Cubit<BookListState> with SafeEmitCubit {
       isFirstTime: false,
     ));
     final result = await _getBooksUseCase.call(
-      fullUrl: fullUrl,
       searchQuery: keyword,
     );
     if (result.isValue) {
-      if (result.asValue?.value.results.isNotEmpty == true) {
-        emit(state.copyWith(
-          apiResult: AsyncData(result.asValue!.value),
-        ));
-      }
+      emit(state.copyWith(
+        apiResult: AsyncData(result.asValue!.value),
+      ));
     } else {
       emit(state.copyWith(
         apiResult: AsyncError(
@@ -58,15 +52,13 @@ class BookListCubit extends Cubit<BookListState> with SafeEmitCubit {
       searchQuery: state.keyword,
     );
     if (result.isValue) {
-      if (result.asValue?.value.results.isNotEmpty == true) {
-        final newResults = result.asValue!.value;
-        final oldResults = state.apiResult.asData?.value ?? GoatResponseArray();
+      final newResults = result.asValue!.value;
+      final oldResults = state.apiResult.asData?.value ?? GoatResponseArray();
 
-        emit(state.copyWith(
-          apiResult: AsyncData(oldResults.appendResult(newResults)),
-          isLoadingMorePage: false,
-        ));
-      }
+      emit(state.copyWith(
+        apiResult: AsyncData(oldResults.appendResult(newResults)),
+        isLoadingMorePage: false,
+      ));
     } else {
       emit(state.copyWith(
         error: ConsumableValue(

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:entity_book/entity_book.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,16 +42,18 @@ class BookListView extends StatelessWidget {
         body: BlocBuilder<BookListCubit, BookListState>(
           builder: (context, state) {
             if (state.apiResult.isLoading) {
-              return const _LoadingBooks(
-                key: Key(BookListView.loadingStateKey),
+              return _LoadingBooks(
+                key: const Key(BookListView.loadingStateKey),
+                isUseSearchBar: isUseSearchBar,
+                keyword: state.keyword,
               );
             } else if (state.apiResult.isData) {
               return _LoadedBooks(
                 key: const Key(BookListView.loadedStateKey),
+                isUseSearchBar: isUseSearchBar,
                 keyword: state.keyword,
                 data: state.apiResult.asData?.value.results ?? [],
                 isLoadingMore: state.isLoadingMorePage,
-                isUseSearchBar: isUseSearchBar,
               );
             } else {
               return const _ErrorBooks(
@@ -64,10 +68,20 @@ class BookListView extends StatelessWidget {
 }
 
 class _LoadingBooks extends StatelessWidget {
-  const _LoadingBooks({Key? key}) : super(key: key);
+  final bool isUseSearchBar;
+
+  final String keyword;
+
+  const _LoadingBooks({
+    Key? key,
+    required this.isUseSearchBar,
+    required this.keyword,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final locale = GoatLocale.of<BookLocale>(context);
+
     return Shimmer.fromColors(
       baseColor: Colors.grey[300]!,
       highlightColor: Colors.grey[100]!,
@@ -77,13 +91,27 @@ class _LoadingBooks extends StatelessWidget {
           height: 4,
         ),
         itemCount: 15,
-        itemBuilder: (context, index) => const BookLoadingComponent(),
+        itemBuilder: (context, index) {
+          if (isUseSearchBar && index == 0) {
+            return Padding(
+              padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
+              child: SearchBarComponent(
+                placeholder: locale.search,
+                text: keyword,
+                enabled: false,
+              ),
+            );
+          }
+          return const BookLoadingComponent();
+        },
       ),
     );
   }
 }
 
 class _LoadedBooks extends StatefulWidget {
+  static const searchDebounceTime = 2;
+
   final String keyword;
 
   final List<Book> data;
@@ -107,6 +135,8 @@ class _LoadedBooks extends StatefulWidget {
 class _LoadedBooksState extends State<_LoadedBooks> {
   late ScrollController _scrollController;
 
+  Timer? _searchDebounce;
+
   @override
   void initState() {
     super.initState();
@@ -119,11 +149,17 @@ class _LoadedBooksState extends State<_LoadedBooks> {
         cubit.loadAndAppend();
       }
     });
+    if (_searchDebounce?.isActive == true) {
+      _searchDebounce?.cancel();
+    }
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
+    if (_searchDebounce?.isActive == true) {
+      _searchDebounce?.cancel();
+    }
     super.dispose();
   }
 
@@ -147,6 +183,19 @@ class _LoadedBooksState extends State<_LoadedBooks> {
                   child: SearchBarComponent(
                     placeholder: locale.search,
                     text: widget.keyword,
+                    onTextChanged: (keyword) {
+                      if (_searchDebounce?.isActive == true) {
+                        _searchDebounce?.cancel();
+                      }
+                      _searchDebounce = Timer(
+                        const Duration(
+                          seconds: _LoadedBooks.searchDebounceTime,
+                        ),
+                        () => context
+                            .read<BookListCubit>()
+                            .load(keyword: keyword),
+                      );
+                    },
                   ),
                 ),
               ),

@@ -29,6 +29,7 @@ class BookComponent extends StatelessWidget {
             if (book.formats.image?.isNotEmpty == true) ...[
               ImageComponent.network(
                 NetworkImage(book.formats.image!),
+                key: UniqueKey(),
                 width: 80,
                 height: 120,
                 fit: BoxFit.fill,
@@ -36,6 +37,7 @@ class BookComponent extends StatelessWidget {
             ] else ...[
               ImageComponent.asset(
                 noImageAsset,
+                key: UniqueKey(),
                 width: 80,
                 height: 120,
                 fit: BoxFit.fill,
