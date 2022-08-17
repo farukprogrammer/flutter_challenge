@@ -1,4 +1,3 @@
-import 'package:network_client/network_client.dart';
 import 'package:nullable_util/nullable_util.dart';
 
 import 'constants.dart';

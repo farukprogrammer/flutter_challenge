@@ -1,48 +1,33 @@
-import 'package:collection/collection.dart';
+import 'package:domain_book/domain_book.dart';
 import 'package:entity_book/entity_book.dart';
 import 'package:flutter/material.dart';
-import 'package:localization/localization.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ui_book/src/view/detail_view.dart';
 
-import '../locale/book_locale.dart';
+import '../cubit/detail_cubit.dart';
 
 class BookDetailPage extends StatelessWidget {
   final int bookId;
   final Book? bookData;
+  final GetBookDetailUseCase getBookDetailUseCase;
 
   const BookDetailPage({
     Key? key,
     required this.bookId,
+    required this.getBookDetailUseCase,
     this.bookData,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final locale = GoatLocale.of<BookLocale>(context);
-    final authorName = bookData?.authors.firstOrNull?.name ?? '';
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('${locale.booksDetail} : ${bookData?.title}'),
-        centerTitle: true,
+    return BlocProvider<DetailCubit>(
+      create: (context) => DetailCubit(
+        getBookDetailUseCase: getBookDetailUseCase,
+        bookId: bookId,
+        bookData: bookData,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () => context.goNamed(
-                'search_result',
-                params: {
-                  'id': '$bookId',
-                },
-                queryParams: {
-                  'author': authorName,
-                },
-              ),
-              child: Text('Go to ${locale.authors(authorName)}'),
-            ),
-          ],
-        ),
+      child: DetailView(
+        bookId: bookId,
       ),
     );
   }

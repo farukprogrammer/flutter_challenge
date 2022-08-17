@@ -36,11 +36,13 @@ class EbookApp extends StatelessWidget {
             GoRoute(
               name: 'detail',
               path: 'detail/:id',
-              builder: (BuildContext context, GoRouterState state) =>
-                  BookDetailPage(
-                bookId: int.tryParse(state.params['id'] ?? '') ?? 0,
-                bookData: state.extra as Book?,
-              ),
+              builder: (BuildContext context, GoRouterState state) {
+                return BookDetailPage(
+                  getBookDetailUseCase: locator(),
+                  bookId: int.tryParse(state.params['id'] ?? '') ?? 0,
+                  bookData: state.extra as Book?,
+                );
+              },
               routes: <GoRoute>[
                 GoRoute(
                   name: 'search_result',

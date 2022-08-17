@@ -1,5 +1,4 @@
 import 'package:async/async.dart';
-import 'package:network_client/network_client.dart';
 
 import '../model/book.dart';
 
