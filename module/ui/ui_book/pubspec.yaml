@@ -38,6 +38,8 @@ dependencies:
 
   go_router: ^4.2.7
 
+  url_launcher: 6.1.5
+
   # url: https://pub.dev/packages/shimmer
   # desc: A package provides an easy way to add shimmer effect
   shimmer: 2.0.0

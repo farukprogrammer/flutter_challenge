@@ -1,6 +1,5 @@
 import 'package:base_component/base_component.dart';
 import 'package:collection/collection.dart';
-import 'package:entity_book/entity_book.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +7,7 @@ import 'package:localization/localization.dart';
 import 'package:result_util/result_util.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:ui_book/src/component/book_detail_component.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../cubit/detail_cubit.dart';
 import '../locale/book_locale.dart';
@@ -73,6 +73,14 @@ class _DetailViewState extends State<DetailView> {
                   field: locale.title,
                   keyword: bookData.title,
                 ),
+                onTapDownload: () => _launchUrl(
+                  context,
+                  url: bookData.formats.zip,
+                ),
+                onTapReadHere: () => _launchUrl(
+                  context,
+                  url: bookData.formats.textHtml,
+                ),
               );
             }
           }
@@ -98,6 +106,14 @@ class _DetailViewState extends State<DetailView> {
         'keyword': keyword,
       },
     );
+  }
+
+  void _launchUrl(
+    BuildContext context, {
+    String? url,
+  }) async {
+    if (url == null) return;
+    await launchUrl(Uri.parse(url));
   }
 }
 
