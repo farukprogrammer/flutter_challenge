@@ -4,23 +4,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:network_client/network_client.dart';
 import 'package:result_util/result_util.dart';
 
-import '../state/home_state.dart';
+import '../state/book_list_state.dart';
 
-class HomeCubit extends Cubit<HomeState> with SafeEmitCubit {
+class BookListCubit extends Cubit<BookListState> with SafeEmitCubit {
   final GetBooksUseCase _getBooksUseCase;
 
-  HomeCubit({
+  BookListCubit({
     required GetBooksUseCase getBooksUseCase,
+    String keyword = '',
   })  : _getBooksUseCase = getBooksUseCase,
-        super(HomeState());
+        super(BookListState(keyword: keyword));
 
   void load({
     String? keyword,
     String? fullUrl,
   }) async {
+    if (state.apiResult.isLoading && !state.isFirstTime) {
+      return;
+    }
     emit(state.copyWith(
       keyword: keyword,
       apiResult: const AsyncLoading(),
+      isFirstTime: false,
     ));
     final result = await _getBooksUseCase.call(
       fullUrl: fullUrl,
@@ -43,7 +48,8 @@ class HomeCubit extends Cubit<HomeState> with SafeEmitCubit {
 
   void loadAndAppend() async {
     final nextFullUrl = state.apiResult.asData?.value.next;
-    if (nextFullUrl?.isEmpty == true || state.isLoadingMorePage) {
+    // if next is nullOrEmpty or still loading, then return
+    if (nextFullUrl?.isEmpty ?? true == true || state.isLoadingMorePage) {
       return;
     }
     emit(state.copyWith(isLoadingMorePage: true));

@@ -50,6 +50,7 @@ class EbookApp extends StatelessWidget {
                     GoRouterState state,
                   ) {
                     return BookSearchResultPage(
+                      getBooksUseCase: locator(),
                       author: state.queryParams['author'] ?? '',
                     );
                   },

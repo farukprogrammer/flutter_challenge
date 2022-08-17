@@ -30,9 +30,15 @@ class BookDetailPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-              onPressed: () => context.goNamed('search_result', queryParams: {
-                'author': authorName,
-              }),
+              onPressed: () => context.goNamed(
+                'search_result',
+                params: {
+                  'id': '$bookId',
+                },
+                queryParams: {
+                  'author': authorName,
+                },
+              ),
               child: Text('Go to ${locale.authors(authorName)}'),
             ),
           ],

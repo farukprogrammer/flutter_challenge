@@ -7,46 +7,53 @@ import 'package:base_component/base_component.dart';
 import 'package:result_util/result_util.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:sliver_tools/sliver_tools.dart';
-import 'package:ui_book/src/cubit/home_cubit.dart';
-import 'package:ui_book/src/state/home_state.dart';
+import 'package:ui_book/src/cubit/book_list_cubit.dart';
+import 'package:ui_book/src/state/book_list_state.dart';
 
 import '../component/book_component.dart';
 import '../component/book_loading_component.dart';
 import '../locale/book_locale.dart';
 
-class BookHomeView extends StatelessWidget {
+class BookListView extends StatelessWidget {
   static const loadingStateKey = 'key-loading';
   static const loadedStateKey = 'key-loaded';
   static const errorStateKey = 'key-error';
   static const retryButtonKey = 'key-retry-button';
 
-  const BookHomeView({Key? key}) : super(key: key);
+  final String title;
+  final bool isUseSearchBar;
+
+  const BookListView({
+    Key? key,
+    required this.title,
+    this.isUseSearchBar = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final locale = GoatLocale.of<BookLocale>(context);
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(locale.books),
+          title: Text(title),
           centerTitle: true,
         ),
-        body: BlocBuilder<HomeCubit, HomeState>(
+        body: BlocBuilder<BookListCubit, BookListState>(
           builder: (context, state) {
             if (state.apiResult.isLoading) {
               return const _LoadingBooks(
-                key: Key(BookHomeView.loadingStateKey),
+                key: Key(BookListView.loadingStateKey),
               );
             } else if (state.apiResult.isData) {
               return _LoadedBooks(
-                key: const Key(BookHomeView.loadedStateKey),
+                key: const Key(BookListView.loadedStateKey),
+                keyword: state.keyword,
                 data: state.apiResult.asData?.value.results ?? [],
                 isLoadingMore: state.isLoadingMorePage,
+                isUseSearchBar: isUseSearchBar,
               );
             } else {
               return const _ErrorBooks(
-                key: Key(BookHomeView.errorStateKey),
+                key: Key(BookListView.errorStateKey),
               );
             }
           },
@@ -77,14 +84,20 @@ class _LoadingBooks extends StatelessWidget {
 }
 
 class _LoadedBooks extends StatefulWidget {
+  final String keyword;
+
   final List<Book> data;
 
   final bool isLoadingMore;
 
+  final bool isUseSearchBar;
+
   const _LoadedBooks({
     Key? key,
+    required this.keyword,
     required this.data,
     required this.isLoadingMore,
+    required this.isUseSearchBar,
   }) : super(key: key);
 
   @override
@@ -99,7 +112,7 @@ class _LoadedBooksState extends State<_LoadedBooks> {
     super.initState();
     _scrollController = ScrollController();
     _scrollController.addListener(() {
-      final cubit = context.read<HomeCubit>();
+      final cubit = context.read<BookListCubit>();
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent * 0.95) {
         cubit.loadAndAppend();
@@ -119,22 +132,25 @@ class _LoadedBooksState extends State<_LoadedBooks> {
 
     return PullToRefresh(
       onRefresh: () async {
-        context.read<HomeCubit>().load();
+        context.read<BookListCubit>().load();
       },
       child: CustomScrollView(
         controller: _scrollController,
         slivers: [
-          SliverPinnedHeader(
-            child: Container(
-              color: ColorToken.inverse01,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
-                child: SearchBarComponent(
-                  placeholder: locale.search,
+          if (widget.isUseSearchBar) ...[
+            SliverPinnedHeader(
+              child: Container(
+                color: ColorToken.inverse01,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
+                  child: SearchBarComponent(
+                    placeholder: locale.search,
+                    text: widget.keyword,
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
@@ -220,9 +236,9 @@ class _ErrorBooks extends StatelessWidget {
             Expanded(
               child: ButtonComponent.large(
                 'RETRY',
-                key: const Key(BookHomeView.retryButtonKey),
+                key: const Key(BookListView.retryButtonKey),
                 style: BaseButtonStyle.outlineGreen,
-                onPressed: () => context.read<HomeCubit>().load(),
+                onPressed: () => context.read<BookListCubit>().load(),
               ),
             ),
           ])
