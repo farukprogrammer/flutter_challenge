@@ -1,33 +1,31 @@
 import 'package:domain_book/domain_book.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:localization/localization.dart';
 
 import '../cubit/book_list_cubit.dart';
-import '../locale/book_locale.dart';
 import '../view/book_list_view.dart';
 
 class BookSearchResultPage extends StatelessWidget {
   final GetBooksUseCase getBooksUseCase;
-  final String author;
+  final String field;
+  final String keyword;
 
   const BookSearchResultPage({
     Key? key,
     required this.getBooksUseCase,
-    required this.author,
+    required this.field,
+    required this.keyword,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final locale = GoatLocale.of<BookLocale>(context);
-
     return BlocProvider<BookListCubit>(
       create: (context) => BookListCubit(
         getBooksUseCase: getBooksUseCase,
-        keyword: author,
-      )..load(keyword: author),
+        keyword: keyword,
+      )..load(keyword: keyword),
       child: BookListView(
-        title: locale.authors(author),
+        title: '$field: $keyword',
         isUseSearchBar: false,
       ),
     );

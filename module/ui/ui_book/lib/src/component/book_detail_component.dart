@@ -17,6 +17,7 @@ class BookDetailComponent extends StatelessWidget {
   final VoidCallback? onTapTitle;
   final VoidCallback? onTapAuthor;
   final VoidCallback? onTapDownload;
+  final VoidCallback? onTapReadHere;
 
   const BookDetailComponent({
     Key? key,
@@ -24,15 +25,15 @@ class BookDetailComponent extends StatelessWidget {
     this.onTapTitle,
     this.onTapAuthor,
     this.onTapDownload,
+    this.onTapReadHere,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final locale = GoatLocale.of<BookLocale>(context);
 
-    final imageUrl = book.formats.image?.isNotEmpty == true
-        ? book.formats.image!
-        : noImageAsset;
+    final imageUrl =
+        book.formats.image?.isNotEmpty == true ? book.formats.image! : null;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,20 +43,30 @@ class BookDetailComponent extends StatelessWidget {
           height: imagePlaceHolderSize,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(imageUrl),
+              image: imageUrl != null
+                  ? NetworkImage(imageUrl)
+                  : const AssetImage(noImageAsset) as ImageProvider,
               fit: BoxFit.cover,
             ),
           ),
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
             child: Center(
-              child: ImageComponent.network(
-                NetworkImage(imageUrl),
-                key: UniqueKey(),
-                width: imageWidth,
-                height: imageHeight,
-                fit: BoxFit.fill,
-              ),
+              child: imageUrl != null
+                  ? ImageComponent.network(
+                      NetworkImage(imageUrl),
+                      key: UniqueKey(),
+                      width: imageWidth,
+                      height: imageHeight,
+                      fit: BoxFit.fill,
+                    )
+                  : ImageComponent.asset(
+                      noImageAsset,
+                      key: UniqueKey(),
+                      width: imageWidth,
+                      height: imageHeight,
+                      fit: BoxFit.fill,
+                    ),
             ),
           ),
         ),
@@ -98,6 +109,7 @@ class BookDetailComponent extends StatelessWidget {
           child: ButtonLinkComponent(
             locale.readHere,
             style: BaseLinkStyle.primary(),
+            onTap: onTapReadHere,
           ),
         ),
       ],

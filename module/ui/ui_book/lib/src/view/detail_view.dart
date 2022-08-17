@@ -61,7 +61,18 @@ class _DetailViewState extends State<DetailView> {
             if (bookData != null) {
               return BookDetailComponent(
                 book: bookData,
-                onTapAuthor: () => _goToSearchAuthor(context, bookData),
+                onTapAuthor: () => _goToSearchPage(
+                  context,
+                  bookId: '${bookData.id}',
+                  field: locale.author,
+                  keyword: bookData.authors.firstOrNull?.name ?? '',
+                ),
+                onTapTitle: () => _goToSearchPage(
+                  context,
+                  bookId: '${bookData.id}',
+                  field: locale.title,
+                  keyword: bookData.title,
+                ),
               );
             }
           }
@@ -73,11 +84,19 @@ class _DetailViewState extends State<DetailView> {
     );
   }
 
-  void _goToSearchAuthor(BuildContext context, Book bookData) {
+  void _goToSearchPage(
+    BuildContext context, {
+    required String bookId,
+    required String field,
+    required String keyword,
+  }) {
     context.goNamed(
       'search_result',
-      params: {'id': '${bookData.id}'},
-      queryParams: {'author': bookData.authors.firstOrNull?.name ?? ''},
+      params: {'id': bookId},
+      queryParams: {
+        'field': field,
+        'keyword': keyword,
+      },
     );
   }
 }

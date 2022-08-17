@@ -22,8 +22,12 @@ class BookLocale extends GoatLocale {
     return resource.get('readHere');
   }
   
-  String authors(dynamic s0) {
-    return resource.get('authors', args: [s0]);
+  String get author {
+    return resource.get('author');
+  }
+  
+  String get title {
+    return resource.get('title');
   }
   
   String get search {

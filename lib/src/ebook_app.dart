@@ -53,7 +53,8 @@ class EbookApp extends StatelessWidget {
                   ) {
                     return BookSearchResultPage(
                       getBooksUseCase: locator(),
-                      author: state.queryParams['author'] ?? '',
+                      field: state.queryParams['field'] ?? '',
+                      keyword: state.queryParams['keyword'] ?? '',
                     );
                   },
                 ),

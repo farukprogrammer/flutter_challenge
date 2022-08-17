@@ -27,10 +27,15 @@ class BookLocaleResource extends LocaleResource {
       'id': 'Baca disini',
       'ja': 'ここを読む',
     },
-    'authors': {
-      'default': 'Authors: %s',
-      'id': 'Pengarang: %s',
-      'ja': '著者: %s',
+    'author': {
+      'default': 'Author',
+      'id': 'Pengarang',
+      'ja': '著者',
+    },
+    'title': {
+      'default': 'Title',
+      'id': 'Judul',
+      'ja': '題名',
     },
     'search': {
       'default': 'Search',
