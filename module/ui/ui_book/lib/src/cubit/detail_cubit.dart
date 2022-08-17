@@ -23,12 +23,6 @@ class DetailCubit extends Cubit<DetailState> with SafeEmitCubit {
         );
 
   void load() async {
-    if (state.apiResult.isLoading) {
-      return;
-    }
-    emit(state.copyWith(
-      apiResult: const AsyncLoading(),
-    ));
     final result = await _getBookDetailUseCase.call(
       bookId: state.bookId,
     );
@@ -43,5 +37,9 @@ class DetailCubit extends Cubit<DetailState> with SafeEmitCubit {
         ),
       ));
     }
+  }
+
+  void setProgressDownload(double progress) {
+    emit(state.copyWith(progressDownload: progress));
   }
 }

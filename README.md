@@ -26,6 +26,10 @@ If you want to run on staging environment, then you need to choose `staging` run
 
 This will help us easier to create custom app using product flavor.
 
+notes : if you want to run using terminal, the command is :
+
+- flutter run --flavor development -t lib/src/main_development.dart
+
 ## Generate locale in ui module
 
 For generating locale just run the following commands :

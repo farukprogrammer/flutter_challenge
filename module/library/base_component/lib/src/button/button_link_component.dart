@@ -130,6 +130,13 @@ class BaseLinkStyle {
     );
   }
 
+  static BaseLinkStyle subheading({TextStyle? style}) {
+    if (style != null && style != _subheading.textStyle) {
+      return _subheading.apply(style);
+    }
+    return _subheading;
+  }
+
   static BaseLinkStyle primary({TextStyle? style}) {
     if (style != null && style != _primary.textStyle) {
       return _primary.apply(style);
@@ -150,6 +157,16 @@ class BaseLinkStyle {
     }
     return _white;
   }
+
+  static final BaseLinkStyle _subheading = BaseLinkStyle(
+    TypographyToken.subheading18(
+      color: ColorToken.link01,
+      decoration: null
+    ),
+    null,
+    ColorToken.link01,
+    ColorToken.link01Disabled
+  );
 
   static final BaseLinkStyle _primary = BaseLinkStyle(
     TypographyToken.body14Bold(

@@ -2,7 +2,7 @@ import 'package:base_component/base_component.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailLoadingComponent extends StatelessWidget {
-  static const double imagePlaceHolderSize = 260;
+  static const double imagePlaceHolderSize = 300;
 
   const BookDetailLoadingComponent({Key? key}) : super(key: key);
 

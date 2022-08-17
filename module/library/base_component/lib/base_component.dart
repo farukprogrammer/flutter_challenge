@@ -7,6 +7,7 @@ export 'src/color/color_token.dart';
 export 'src/container/focusable_container.dart';
 export 'src/container/tappable_container.dart';
 export 'src/corner/corner_token.dart';
+export 'src/feedback/snackbar/snackbar.dart';
 export 'src/form/input_text_component.dart';
 export 'src/icon/icon_component.dart';
 export 'src/icon_position.dart';

@@ -1,11 +1,14 @@
 import 'dart:ui';
 
+import 'package:base_asset/base_asset.dart';
 import 'package:base_component/base_component.dart';
 import 'package:collection/collection.dart';
 import 'package:entity_book/entity_book.dart';
 import 'package:flutter/material.dart';
 import 'package:localization/localization.dart';
-import 'package:ui_book/src/locale/book_locale.dart';
+import 'package:percent_indicator/percent_indicator.dart';
+
+import '../locale/book_locale.dart';
 
 class BookDetailComponent extends StatelessWidget {
   static const noImageAsset = 'packages/ui_book/asset/image/no_image.jpg';
@@ -18,6 +21,7 @@ class BookDetailComponent extends StatelessWidget {
   final VoidCallback? onTapAuthor;
   final VoidCallback? onTapDownload;
   final VoidCallback? onTapReadHere;
+  final double progressDownload;
 
   const BookDetailComponent({
     Key? key,
@@ -26,6 +30,7 @@ class BookDetailComponent extends StatelessWidget {
     this.onTapAuthor,
     this.onTapDownload,
     this.onTapReadHere,
+    this.progressDownload = 0,
   }) : super(key: key);
 
   @override
@@ -97,18 +102,35 @@ class BookDetailComponent extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
           child: Tappable(
             onTap: onTapDownload,
-            child: TextComponent(
-              '${locale.downloads}: ${book.downloadCount}',
-              style: TypographyToken.caption12(),
-              textAlign: TextAlign.center,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconComponent.major(BaseIcon.download),
+                const SizedBox(width: 8),
+                TextComponent(
+                  '${locale.downloads}: ${book.downloadCount}',
+                  style: TypographyToken.body14(),
+                  textAlign: TextAlign.center,
+                ),
+                if (progressDownload > 0 && progressDownload < 100) ...[
+                  const SizedBox(width: 8),
+                  LinearPercentIndicator(
+                    width: 100.0,
+                    lineHeight: 14.0,
+                    percent: progressDownload,
+                    backgroundColor: Colors.white,
+                    progressColor: Colors.blue,
+                  ),
+                ],
+              ],
             ),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
           child: ButtonLinkComponent(
             locale.readHere,
-            style: BaseLinkStyle.primary(),
+            style: BaseLinkStyle.subheading(),
             onTap: onTapReadHere,
           ),
         ),

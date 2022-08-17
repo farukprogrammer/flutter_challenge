@@ -40,6 +40,12 @@ dependencies:
 
   url_launcher: 6.1.5
 
+  # for downloading
+  flowder: 0.2.0
+  path_provider: 2.0.11
+  percent_indicator: 4.2.2
+  open_file: 3.2.1
+
   # url: https://pub.dev/packages/shimmer
   # desc: A package provides an easy way to add shimmer effect
   shimmer: 2.0.0

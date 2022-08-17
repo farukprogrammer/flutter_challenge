@@ -1,18 +1,23 @@
+import 'dart:io';
+
 import 'package:base_component/base_component.dart';
 import 'package:collection/collection.dart';
+import 'package:flowder/flowder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:localization/localization.dart';
+import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:result_util/result_util.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:ui_book/src/component/book_detail_component.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../component/book_detail_loading_component.dart';
 import '../cubit/detail_cubit.dart';
 import '../locale/book_locale.dart';
 import '../state/detail_state.dart';
-import '../component/book_detail_loading_component.dart';
 
 class DetailView extends StatefulWidget {
   static const loadingStateKey = 'key-loading';
@@ -32,13 +37,38 @@ class DetailView extends StatefulWidget {
 }
 
 class _DetailViewState extends State<DetailView> {
+  late DownloaderUtils options;
+  late DownloaderCore core;
+
+  late final String path;
+
   @override
   void initState() {
     super.initState();
-    final cubit = context.read<DetailCubit>();
-    if (cubit.state.apiResult.value == null) {
-      cubit.load();
+    _initPlatformState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final cubit = context.read<DetailCubit>();
+      if (cubit.state.apiResult.value == null) {
+        cubit.load();
+      }
+    });
+  }
+
+  Future<void> _initPlatformState() async {
+    _setPath();
+    if (!mounted) return;
+  }
+
+  void _setPath() async {
+    Directory docPath = await getApplicationDocumentsDirectory();
+    String localPath = '${docPath.path}${Platform.pathSeparator}Download';
+
+    final savedDir = Directory(localPath);
+    bool hasExisted = await savedDir.exists();
+    if (!hasExisted) {
+      savedDir.create();
     }
+    path = localPath;
   }
 
   @override
@@ -61,6 +91,7 @@ class _DetailViewState extends State<DetailView> {
             if (bookData != null) {
               return BookDetailComponent(
                 book: bookData,
+                progressDownload: state.progressDownload,
                 onTapAuthor: () => _goToSearchPage(
                   context,
                   bookId: '${bookData.id}',
@@ -73,10 +104,21 @@ class _DetailViewState extends State<DetailView> {
                   field: locale.title,
                   keyword: bookData.title,
                 ),
-                onTapDownload: () => _launchUrl(
-                  context,
-                  url: bookData.formats.zip,
-                ),
+                onTapDownload: () {
+                  // if already downloading, do nothing
+                  if (state.progressDownload > 0 &&
+                      state.progressDownload < 1) {
+                    return;
+                  } else if (state.progressDownload == 1) {
+                    _openFile(bookId: '${bookData.id}');
+                    return;
+                  }
+                  _startDownload(
+                    context,
+                    bookId: '${bookData.id}',
+                    downloadUrl: bookData.formats.zip,
+                  );
+                },
                 onTapReadHere: () => _launchUrl(
                   context,
                   url: bookData.formats.textHtml,
@@ -98,7 +140,7 @@ class _DetailViewState extends State<DetailView> {
     required String field,
     required String keyword,
   }) {
-    context.goNamed(
+    context.pushNamed(
       'search_result',
       params: {'id': bookId},
       queryParams: {
@@ -112,8 +154,49 @@ class _DetailViewState extends State<DetailView> {
     BuildContext context, {
     String? url,
   }) async {
-    if (url == null) return;
+    if (url == null) {
+      Snackbar.showError(context, 'text/html link not supported');
+      return;
+    }
     await launchUrl(Uri.parse(url));
+  }
+
+  void _startDownload(
+    BuildContext context, {
+    required String bookId,
+    String? downloadUrl,
+  }) async {
+    if (downloadUrl == null) {
+      Snackbar.showError(context, 'zip link not supported');
+      return;
+    }
+    final cubit = context.read<DetailCubit>();
+
+    options = DownloaderUtils(
+      progressCallback: (current, total) {
+        final progress = (current / total);
+        cubit.setProgressDownload(progress);
+      },
+      file: File('$path/$bookId.zip'),
+      progress: ProgressImplementation(),
+      onDone: () {
+        Snackbar.showNeutral(context, 'Download Finished!');
+        _openFile(bookId: bookId);
+      },
+      deleteOnCancel: true,
+    );
+    core = await Flowder.download(
+      downloadUrl,
+      options,
+    );
+  }
+
+  void _openFile({required String bookId}) async {
+    OpenFile.open('$path/$bookId.zip').then((result) {
+      if (result.type != ResultType.done) {
+        Snackbar.showNeutral(context, result.message);
+      }
+    });
   }
 }
 

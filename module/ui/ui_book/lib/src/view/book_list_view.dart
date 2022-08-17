@@ -242,7 +242,7 @@ class _LoadedBooksState extends State<_LoadedBooks> {
   }
 
   void _goToBookDetail(BuildContext context, Book book) {
-    context.goNamed(
+    context.pushNamed(
       'detail',
       params: {'id': '${book.id}'},
       extra: book,
