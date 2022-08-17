@@ -114,7 +114,8 @@ class _LoadedBooksState extends State<_LoadedBooks> {
     _scrollController.addListener(() {
       final cubit = context.read<BookListCubit>();
       if (_scrollController.position.pixels >=
-          _scrollController.position.maxScrollExtent * 0.95) {
+              _scrollController.position.maxScrollExtent * 0.95 &&
+          !cubit.state.isLoadingMorePage) {
         cubit.loadAndAppend();
       }
     });
