@@ -33,7 +33,7 @@ class BookComponent extends StatelessWidget {
                 width: 80,
                 height: 120,
                 fit: BoxFit.fill,
-              )
+              ),
             ] else ...[
               ImageComponent.asset(
                 noImageAsset,
@@ -41,7 +41,7 @@ class BookComponent extends StatelessWidget {
                 width: 80,
                 height: 120,
                 fit: BoxFit.fill,
-              )
+              ),
             ],
             const SizedBox(width: 16),
             Column(

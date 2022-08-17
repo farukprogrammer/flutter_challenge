@@ -13,9 +13,9 @@ class BookLocaleResource extends LocaleResource {
       'ja': '図書',
     },
     'booksDetail': {
-      'default': 'Books Detail',
+      'default': 'Book Details',
       'id': 'Detail Buku',
-      'ja': '書籍詳細',
+      'ja': '本の詳細',
     },
     'downloads': {
       'default': 'Downloads',
@@ -36,6 +36,21 @@ class BookLocaleResource extends LocaleResource {
       'default': 'Search',
       'id': 'Cari',
       'ja': 'サーチ',
+    },
+    'somethingWrong': {
+      'default': 'Something went wrong..',
+      'id': 'Terjadi Kesalahan..',
+      'ja': '何かがうまくいかなかった',
+    },
+    'alienBlocking': {
+      'default': 'An alien is probably blocking your signal.',
+      'id': 'Alien mungkin memblokir sinyal Anda.',
+      'ja': 'エイリアンがあなたの信号をブロックしている可能性があります。',
+    },
+    'retry': {
+      'default': 'Retry',
+      'id': 'Coba Lagi',
+      'ja': 'リトライ',
     },
   };
 }

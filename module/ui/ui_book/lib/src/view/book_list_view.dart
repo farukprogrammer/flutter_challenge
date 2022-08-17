@@ -196,6 +196,9 @@ class _LoadedBooksState extends State<_LoadedBooks> {
                             .load(keyword: keyword),
                       );
                     },
+                    onTextSubmitted: (keyword) {
+                      context.read<BookListCubit>().load(keyword: keyword);
+                    },
                   ),
                 ),
               ),
@@ -255,6 +258,8 @@ class _ErrorBooks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = GoatLocale.of<BookLocale>(context);
+
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
       child: Column(
@@ -270,12 +275,12 @@ class _ErrorBooks extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                   TextComponent(
-                    'Something went wrong..',
+                    locale.somethingWrong,
                     style: TypographyToken.subheading18(),
                   ),
                   const SizedBox(height: 8),
                   TextComponent(
-                    'An alien is probably blocking your signal.',
+                    locale.alienBlocking,
                     style: TypographyToken.body14(),
                   ),
                 ],
@@ -285,7 +290,7 @@ class _ErrorBooks extends StatelessWidget {
           Row(children: [
             Expanded(
               child: ButtonComponent.large(
-                'RETRY',
+                locale.retry,
                 key: const Key(BookListView.retryButtonKey),
                 style: BaseButtonStyle.outlineGreen,
                 onPressed: () => context.read<BookListCubit>().load(),

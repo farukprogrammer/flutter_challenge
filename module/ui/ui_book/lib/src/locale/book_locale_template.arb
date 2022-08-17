@@ -1,14 +1,14 @@
 {
-  "@@last_modified": "2022-08-16T17:49:33.818285",
+  "@@last_modified": "2022-08-17T11:34:49.527955",
   "books": {
     "default": "Books",
     "id": "Buku",
     "ja": "図書"
   },
   "booksDetail": {
-    "default": "Books Detail",
+    "default": "Book Details",
     "id": "Detail Buku",
-    "ja": "書籍詳細"
+    "ja": "本の詳細"
   },
   "downloads": {
     "default": "Downloads",
@@ -29,5 +29,20 @@
     "default": "Search",
     "id": "Cari",
     "ja": "サーチ"
+  },
+  "somethingWrong": {
+    "default": "Something went wrong..",
+    "id": "Terjadi Kesalahan..",
+    "ja": "何かがうまくいかなかった"
+  },
+  "alienBlocking": {
+    "default": "An alien is probably blocking your signal.",
+    "id": "Alien mungkin memblokir sinyal Anda.",
+    "ja": "エイリアンがあなたの信号をブロックしている可能性があります。"
+  },
+  "retry": {
+    "default": "Retry",
+    "id": "Coba Lagi",
+    "ja": "リトライ"
   }
 }
