@@ -41,7 +41,11 @@ dependencies:
   url_launcher: 6.1.5
 
   # for downloading
-  flowder: 0.2.0
+  flowder:
+    git:
+      url: https://github.com/mapacheverdugo/flowder
+      ref: b53316a53b56deec01a25be8cb8c73e2b8da2947
+
   path_provider: 2.0.11
   percent_indicator: 4.2.2
   open_file: 3.2.1
@@ -64,6 +68,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+
+  test_util:
+    path: ../../library/test_util
 
 # The following section is specific to Flutter packages.
 flutter:

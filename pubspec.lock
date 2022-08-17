@@ -141,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+  fake_entity_book:
+    dependency: "direct overridden"
+    description:
+      path: "module/entity/fake_entity_book"
+      relative: true
+    source: path
+    version: "0.0.1"
   ffi:
     dependency: transitive
     description:
@@ -158,9 +165,11 @@ packages:
   flowder:
     dependency: transitive
     description:
-      name: flowder
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: b53316a53b56deec01a25be8cb8c73e2b8da2947
+      resolved-ref: b53316a53b56deec01a25be8cb8c73e2b8da2947
+      url: "https://github.com/mapacheverdugo/flowder"
+    source: git
     version: "0.2.0"
   flutter:
     dependency: "direct main"
@@ -565,6 +574,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
+  test_util:
+    dependency: "direct dev"
+    description:
+      path: "module/library/test_util"
+      relative: true
+    source: path
+    version: "0.0.1"
   typed_data:
     dependency: transitive
     description:

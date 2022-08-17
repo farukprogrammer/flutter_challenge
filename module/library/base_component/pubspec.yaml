@@ -32,6 +32,9 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.0
 
+  test_util:
+    path: ../../library/test_util
+
 flutter:
   fonts:
     - family: BukaSansDisplay

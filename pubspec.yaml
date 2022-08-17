@@ -41,6 +41,8 @@ dev_dependencies:
   flutter_lints: ^2.0.0
   localization:
     path: module/library/localization
+  test_util:
+    path: module/library/test_util
 
 # The following section is specific to Flutter packages.
 flutter:

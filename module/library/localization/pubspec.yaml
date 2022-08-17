@@ -17,3 +17,6 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^1.0.0
 
+  test_util:
+    path: ../../library/test_util
+
