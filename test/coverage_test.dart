@@ -4,6 +4,7 @@
 // ignore_for_file: unused_import
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:goat_flutter_challenge/main.dart';
 import 'package:goat_flutter_challenge/src/main_development.dart';
 import 'package:goat_flutter_challenge/src/bootstrap.dart';
 import 'package:goat_flutter_challenge/src/main_production.dart';
