@@ -36,7 +36,4 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.0
 
-  nullable_util:
-    path: ../../library/nullable_util
-
 flutter:

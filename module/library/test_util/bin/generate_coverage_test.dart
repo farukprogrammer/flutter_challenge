@@ -13,7 +13,7 @@ void main(List<String> args) async {
           !file.path.contains(".symlinks") &&
           file.path.endsWith("pubspec.yaml"))
       .forEach((file) async {
-    final testDir = Directory(file.parent.path + "/test");
+    final testDir = Directory('${file.parent.path}/test');
     final isExisted = await testDir.exists();
     if (!isExisted) {
       await testDir.create();
@@ -29,7 +29,7 @@ void main(List<String> args) async {
 
 Future<String> generateCoverageTestFileContent(Directory projectFolder) async {
   final packageName = projectFolder.path.split("/").last;
-  final libFolder = Directory(projectFolder.path + "/lib");
+  final libFolder = Directory('${projectFolder.path}/lib');
   print("Coverage for $packageName");
 
   String fileImports = "";

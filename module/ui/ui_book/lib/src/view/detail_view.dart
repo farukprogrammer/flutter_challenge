@@ -20,10 +20,10 @@ import '../locale/book_locale.dart';
 import '../state/detail_state.dart';
 
 class DetailView extends StatefulWidget {
-  static const loadingStateKey = 'key-loading';
-  static const loadedStateKey = 'key-loaded';
-  static const errorStateKey = 'key-error';
-  static const retryButtonKey = 'key-retry-button';
+  static const loadingStateKey = 'detail-key-loading';
+  static const loadedStateKey = 'detail-key-loaded';
+  static const errorStateKey = 'detail-key-error';
+  static const retryButtonKey = 'detail-key-retry-button';
 
   final int bookId;
 
@@ -90,6 +90,7 @@ class _DetailViewState extends State<DetailView> {
             final bookData = state.apiResult.asData?.value;
             if (bookData != null) {
               return BookDetailComponent(
+                key: const Key(DetailView.loadedStateKey),
                 book: bookData,
                 progressDownload: state.progressDownload,
                 onTapAuthor: () => _goToSearchPage(
