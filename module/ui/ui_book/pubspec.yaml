@@ -40,6 +40,8 @@ dependencies:
 
   url_launcher: 6.1.5
 
+  async: 2.8.2
+
   # for downloading
   flowder:
     git:
@@ -68,6 +70,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+
+  fake_domain_book:
+    path: ../../domain/fake_domain_book
 
   test_util:
     path: ../../library/test_util

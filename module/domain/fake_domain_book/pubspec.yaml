@@ -1,0 +1,42 @@
+name: fake_domain_book
+description: A new Flutter package project.
+version: 0.0.1
+homepage:
+publish_to: 'none'
+
+environment:
+  sdk: ">=2.17.6 <3.0.0"
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # url: https://pub.dev/packages/async
+  # desc: for Result<*> to easier define loading, success or error
+  async: 2.8.2
+
+  network_client:
+    path: ../../library/network_client
+
+  nullable_util:
+    path: ../../library/nullable_util
+
+  domain_book:
+    path: ../../domain/domain_book
+
+  entity_book:
+    path: ../../entity/entity_book
+
+  fake_entity_book:
+    path: ../../entity/fake_entity_book
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+  nullable_util:
+    path: ../../library/nullable_util
+
+flutter:

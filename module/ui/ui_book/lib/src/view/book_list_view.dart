@@ -19,6 +19,7 @@ import '../locale/book_locale.dart';
 class BookListView extends StatelessWidget {
   static const loadingStateKey = 'key-loading';
   static const loadedStateKey = 'key-loaded';
+  static const seachBarKey = 'key-search-bar';
   static const errorStateKey = 'key-error';
   static const retryButtonKey = 'key-retry-button';
 
@@ -176,6 +177,7 @@ class _LoadedBooksState extends State<_LoadedBooks> {
         slivers: [
           if (widget.isUseSearchBar) ...[
             SliverPinnedHeader(
+              key: const Key(BookListView.seachBarKey),
               child: Container(
                 color: ColorToken.inverse01,
                 child: Padding(

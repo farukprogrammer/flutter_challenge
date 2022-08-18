@@ -141,6 +141,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+  fake_domain_book:
+    dependency: "direct overridden"
+    description:
+      path: "module/domain/fake_domain_book"
+      relative: true
+    source: path
+    version: "0.0.1"
   fake_entity_book:
     dependency: "direct overridden"
     description:
