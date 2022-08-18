@@ -1,56 +1,57 @@
-# goat_flutter_challenge
+# Goat Flutter Challenge
 
 XYZ Goat Flutter Challenge - Scenario B
 
-## Getting Started
+## Demo
 
-This project is a starting point for a Flutter application.
+![](demo/flutter_challenge_demo.mp4)
 
-before started, you need to active melos
+## Prequisite
 
-- dart pub global activate melos
+- Flutter SDK : v3.0.5
+- Dart SDK: v2.17.6
 
-melos is a great tools to support multiple package flutter app, wo we don't create a monolythic app
+## How to Build
+
+### 1. before started, you need to active melos.
+open terminal and run this command:
+
+````shell
+dart pub global activate melos
+````
+melos is a great tools to support multiple package flutter app, wo we don't create a monolythic app.
+
 reference : https://medium.com/flutter-community/managing-multi-package-flutter-projects-with-melos-c8ce96fa7c82
 
+### 2. Dowload all dependency library using - melos bs
 to download all the dependency you need to run the following commands, 
-this command will run `flutter pub get` for all modules
+this command will run `flutter pub get` for all modules. 
+Doing that will be problematic because this project is contains mutiple modules.
 
-- melos bs
+Fortunately, melos has easier way to do that.
 
-## Run The Project with Flavor
+open terminal and run this command:
 
-In-order to run the project you need to select run configuration based on environment,
-for example if you want to run on development environment, then you need to choose `development` run configuration.
+````shell
+melos bs
+````
+### 3. Run The Project with Flavor
+
+In-order to run the project you need to select run configuration based on environment.
+
+For example if you want to run on `development` environment, then you need to choose `development` run configuration.
 If you want to run on staging environment, then you need to choose `staging` run configuration and so on.
 
-This will help us easier to create custom app using product flavor.
+In the project there are already included configuration for `Android Studio`, and it will be detected automatically.
 
-notes : if you want to run using terminal, the command is :
+But, if you want to run using terminal, the command is :
 
-- flutter run --flavor development -t lib/src/main_development.dart
 
-## Generate locale in ui module
+```shell
+flutter run --flavor development -t lib/src/main_development.dart
+```
 
-For generating locale just run the following commands :
 
-  - melos gen_locale
-
-And then choose the ui module that need to be generated.
-After update the .arb files, you need to re-run `melos gen_locale` again
-
-## How to use locale resource
-You can get the locale by using:
-
-  - final locale = GoatLocale.of<<ui_module_name>Locale>(context);
-
-So using the same example the `ui_book` module, we can get it like so:
-
-  - final locale = GoatLocale.of<BookLocale>(context);
-
-And to get the resource you can directly use the locale and get the resource name
-
-  - locale.resourceName
 
 
 
