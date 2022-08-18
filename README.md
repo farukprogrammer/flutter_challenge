@@ -4,7 +4,8 @@ XYZ Goat Flutter Challenge - Scenario B
 
 ## Demo
 
-![](demo/flutter_challenge_demo.mp4)
+https://user-images.githubusercontent.com/9499570/185303810-6d4f8707-567d-4a37-93aa-04b39152f844.mp4
+
 
 ## Prequisite
 
