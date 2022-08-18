@@ -2,6 +2,9 @@
 
 XYZ Goat Flutter Challenge - Scenario B
 
+Implement with `clean architecture` and multiple repo in mind, 
+so that it can be scallable to be re-used in different apps
+
 ## Demo
 
 https://user-images.githubusercontent.com/9499570/185303810-6d4f8707-567d-4a37-93aa-04b39152f844.mp4
@@ -51,6 +54,38 @@ But, if you want to run using terminal, the command is :
 flutter run --flavor development -t lib/src/main_development.dart
 ```
 
+## List Of Modules
+
+1. Library
+   1. `base_asset` - containing all the asset for all the icon
+   2. `base_component` - containing all the basic components for basic ui
+   3. `cubit_util` - containing util that can be used for create cubit and cubit state
+   4. `localization` - library for generate localization automatically for every ui module
+   5. `network_client` - for calling API using library called `dio`
+   6. `nullable_util` - containing util for nullable
+   7. `result_util` - containing helper for wraping api Result
+   8. `service_locator` - for dependency injection using `GetIt`
+   9. `test_util` - containing util related testing, also containing script to generate `coverage_test` file.
+   
+
+   nb: coverage_test is work around to handle this issue https://github.com/flutter/flutter/issues/27997
+
+2. Entity 
+   1. `entity_book` - containing models related api and also `interface` for Domain and Data Layer
+   2. `fake_entity_book` - containing fake class for `interface` in `entity_book` so that can help in testing
+
+
+3. Domain (unit test Written)
+   1. `domain_book` - containing useCase in domain layer
+   2. `fake_domain_book` - containing fake class for `usecase` in `domain_book` so that can help in testing
+
+
+4. Data (unit test partly written)
+   1. `data_book` - containing implementation of `entity_book` interface using `network_client`
+
+
+5. UI (unit test partly written for pages)
+   1. `ui_book` - containing code for all the screens
 
 
 
