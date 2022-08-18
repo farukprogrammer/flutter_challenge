@@ -6,7 +6,6 @@ XYZ Goat Flutter Challenge - Scenario B
 
 https://user-images.githubusercontent.com/9499570/185303810-6d4f8707-567d-4a37-93aa-04b39152f844.mp4
 
-
 ## Prequisite
 
 - Flutter SDK : v3.0.5
@@ -27,7 +26,7 @@ reference : https://medium.com/flutter-community/managing-multi-package-flutter-
 ### 2. Dowload all dependency library using - melos bs
 to download all the dependency you need to run the following commands, 
 this command will run `flutter pub get` for all modules. 
-Doing that will be problematic because this project is contains mutiple modules.
+Doing that will be problematic because this project is contains multiple modules.
 
 Fortunately, melos has easier way to do that.
 
