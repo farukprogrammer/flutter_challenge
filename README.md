@@ -19,7 +19,7 @@ open terminal and run this command:
 ````shell
 dart pub global activate melos
 ````
-melos is a great tools to support multiple package flutter app, wo we don't create a monolythic app.
+melos is a great tools to support multiple package flutter app, so we don't create a monolythic app.
 
 reference : https://medium.com/flutter-community/managing-multi-package-flutter-projects-with-melos-c8ce96fa7c82
 
