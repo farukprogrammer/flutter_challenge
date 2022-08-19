@@ -10,8 +10,6 @@ scripts:
   get: melos exec -c 1 --file-exists=".metadata" -- "flutter pub get"
   flutter_clean: melos exec -c 1 -- "flutter clean"
   test_coverage: melos exec --dir-exists="test" -- "flutter test --no-pub --coverage"
-  test_coverage_with_result: melos exec --dir-exists="test" -- "[ -d 'coverage/' ] || mkdir 'coverage/'; flutter test --no-pub --coverage --machine > coverage/test_result.jsonl"
-  gen_test_result_xml: melos exec -c 1 --dir-exists="test" -- "tojunit --output coverage/test_result.xml --input coverage/test_result.jsonl"
   gen_merged_coverage: rm -rf \$MELOS_ROOT_PATH/unit_test_report/lcov.info && melos exec -c 1 -- "\$MELOS_ROOT_PATH/script/executable/combine_coverage.sh"
   gen_html_merged_coverage: genhtml unit_test_report/lcov.info -o unit_test_report/loc_coverage_html_report -p \$MELOS_ROOT_PATH
   clean_coverage_data: find . -name 'coverage' -type d | xargs rm -rf

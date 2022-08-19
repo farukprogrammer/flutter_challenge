@@ -88,5 +88,50 @@ flutter run --flavor development -t lib/src/main_development.dart
    1. `ui_book` - containing code for all the screens
 
 
+## Coverage Report
+
+### Generating all coverage report using melos
+
+1. Generate `coverage_test` files so that we can detect all coverage. 
+If we're not doing this, the file that doesn't have a test file won't be able to be detected.
+The detail of the issue can be seen in here : https://github.com/flutter/flutter/issues/27997
+
+   ```shell
+   flutter pub run test_util:generate_coverage_test.dart
+   ```
+   
+2. Run all the test with coverage in all module
+
+   ```shell
+   melos test_coverage
+   ```
+
+3. Combine all coverage data into one coverage file in `unit_test_report/lcov.info`
+
+   ```shell
+   melos gen_merged_coverage
+   ```
+      
+4. Generate html report based on merged coverage data in `unit_test_report/lcov.info` 
+the result will be in folder `unit_test_report/loc_coverage_html_report/index.html`
+      
+   ```shell
+   melos gen_html_merged_coverage
+   ```
+      
+5. Open the coverage report in browser `unit_test_report/loc_coverage_html_report/index.html`
+
+   ```shell
+   open unit_test_report/loc_coverage_html_report/index.html
+   ```
+
+   #### The result will be like this: 
+   
+   ![](demo/ss_coverage_report.png)
 
 
+6. To delete all coverage data you can run this command
+
+   ```shell
+   melos clean_coverage_data
+   ```
